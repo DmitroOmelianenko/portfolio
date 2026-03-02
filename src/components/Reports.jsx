@@ -1,67 +1,56 @@
-import styled from "styled-components";
-import React, { useState } from "react";
-import FeedbackForm from './FeedbackForm';
-import FeedbackList from './FeedbackList';
+// Reports.jsx
+import React, { useEffect, useState } from "react";
+import styled, { keyframes } from "styled-components";
+import FeedbackForm from "./FeedbackForm";
+import FeedbackList from "./FeedbackList";
 
-const StyledReports = styled.section`
-    background-color: #f0f0f0;
-    padding-bottom: 40px;
-    animation: fadeIn 0.8s ease-in-out;
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .reports {
-        font-family: 'Arial', sans-serif;
-        font-size: 36px;
-        color: #333;
-        text-align: center;
-        padding-top: 40px;
-        animation: slideInRight 0.6s ease-in-out;
-    }
-
-    @keyframes slideInRight {
-      from {
-        opacity: 0;
-        transform: translateX(50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    .reportsContent {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-    }
+const fadeUp = keyframes`
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 `;
 
-const Reports = () => {
-    const [feedbacks, setFeedbacks] = useState([]);
+const StyledReports = styled.section`
+  --bg: #f6f6f8;
 
-    const handleFeedbackSubmit = (newFeedback) => {
-        setFeedbacks([...feedbacks, newFeedback]);
-    };
+  padding: 72px 20px;
+  background: radial-gradient(900px 450px at 10% 0%, rgba(180,18,18,.10), transparent 55%),
+              var(--bg);
 
-    return (
-        <StyledReports id="reports">
-            <div className="reportsContent">
-                <h1 className="reports">Відгуки</h1>
-                <FeedbackForm onSubmit={handleFeedbackSubmit} />
-                <FeedbackList feedbacks={feedbacks} />
-            </div>
-        </StyledReports>
-    );
-};
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
 
-export default Reports;
+  h1 {
+    margin: 0 0 18px;
+    text-align: center;
+    font-size: clamp(26px, 3vw, 42px);
+    color: #121317;
+    animation: ${fadeUp} .6s ease both;
+  }
+`;
+
+export default function Reports() {
+  const [feedbacks, setFeedbacks] = useState(() => {
+    const saved = localStorage.getItem("feedbacks");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("feedbacks", JSON.stringify(feedbacks));
+  }, [feedbacks]);
+
+  const handleFeedbackSubmit = (newFeedback) => {
+    setFeedbacks((prev) => [newFeedback, ...prev]);
+  };
+
+  return (
+    <StyledReports id="reports">
+      <div className="container">
+        <h1>Відгуки</h1>
+        <FeedbackForm onSubmit={handleFeedbackSubmit} />
+        <FeedbackList feedbacks={feedbacks} />
+      </div>
+    </StyledReports>
+  );
+}

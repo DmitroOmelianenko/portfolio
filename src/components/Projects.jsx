@@ -1,225 +1,253 @@
-import styled from "styled-components";
+// Projects.jsx
 import React from "react";
-import greyWolf from "../images/greywolf.png"
-import focusFrame from '../images/focusframe.png'
-import es from '../images/es.png'
+import styled, { keyframes } from "styled-components";
+import greyWolf from "../images/greywolf.png";
+import focusFrame from "../images/focusframe.png";
+import es from "../images/es.png";
+
+const fadeUp = keyframes`
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+`;
 
 const StyledProjects = styled.section`
-    background-color: #3b3b3b;
-    padding-bottom: 40px;
-    animation: fadeIn 0.8s ease-in-out;
+  --accent: #ffcc00;
+  --bg: #0f1013;
+  --card: rgba(255,255,255,.06);
+  --border: rgba(255,255,255,.10);
+  --text: #f3f4f6;
+  --muted: rgba(243,244,246,.72);
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+  background: radial-gradient(1200px 600px at 15% -10%, rgba(255,204,0,.18), transparent 60%),
+              radial-gradient(900px 500px at 85% 0%, rgba(180,18,18,.18), transparent 60%),
+              var(--bg);
+  padding: 72px 20px;
+  color: var(--text);
 
-    .projectsName {
-        font-family: 'Arial', sans-serif;
-        font-size: 36px;
-        color: white;
-        text-align: center;
-        padding-top: 40px;
-        animation: slideInLeft 0.6s ease-in-out;
-    }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
 
-    @keyframes slideInLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
+  h2 {
+    margin: 0 0 28px;
+    text-align: center;
+    font-size: clamp(26px, 3vw, 42px);
+    animation: ${fadeUp} .6s ease both;
+  }
 
-    .projectList {
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        gap: 40px;
-        margin: 40px auto;
-        padding: 0;
-        max-width: 1000px;
-    }
-    .projectItem {
-        background-color: #555;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        animation: slideInUp 0.6s ease-in-out backwards;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 30px;
-        align-items: center;
-    }
+  .grid {
+    display: grid;
+    gap: 16px;
+  }
 
-    @keyframes slideInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+  .card {
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 16px;
+    box-shadow: 0 18px 60px rgba(0,0,0,.35);
+    animation: ${fadeUp} .55s ease both;
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
 
-    .projectItem:nth-child(1) {
-      animation-delay: 0.1s;
-    }
-    .projectItem:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-    .projectItem:nth-child(3) {
-      animation-delay: 0.3s;
-    }
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 26px 80px rgba(0,0,0,.45);
+    border-color: rgba(255,204,0,.22);
+  }
 
-    .projectItem:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 16px rgba(255, 204, 0, 0.3);
-    }
+  .media {
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.10);
+    background: rgba(0,0,0,.2);
+  }
 
-    .projectPhoto { 
-        width: 100%;
-        height: auto;
-        border-radius: 10px;
-        transition: transform 0.3s ease;
-    }
+  .media img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transform: scale(1.01);
+    transition: transform .25s ease;
+  }
 
-    .projectPhoto:hover {
-        transform: scale(1.02);
-    }
+  .card:hover .media img { transform: scale(1.04); }
 
-    .projectContent {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 4px 4px 8px;
+  }
 
-    .projectName {
-        font-family: 'Arial', sans-serif;
-        font-size: 24px;
-        color: #ffcc00;
-        margin-bottom: 10px;
+  .name {
+    margin: 0;
+    font-size: 20px;
+    letter-spacing: .2px;
+    color: var(--text);
+  }
 
-        a {
-            color: #ffcc00;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        a:hover {
-            text-decoration: underline;
-            color: #fff;
-        }
-    }
-    .projectDescription {
-        font-family: 'Arial', sans-serif;
-        font-size: 18px;
-        color: white;
-        line-height: 1.6;
-    }
+  .name a {
+    color: var(--accent);
+    text-decoration: none;
+  }
 
-    /* Tablet */
-    @media (max-width: 768px) {
-        .projectsName {
-            font-size: 28px;
-            padding-top: 30px;
-        }
+  .name a:hover { text-decoration: underline; }
 
-        .projectList {
-            gap: 30px;
-            margin: 30px auto;
-        }
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
 
-        .projectItem {
-            grid-template-columns: 1fr;
-            gap: 20px;
-            padding: 20px;
-        }
+  .badge {
+    font-size: 12px;
+    padding: 7px 10px;
+    border-radius: 999px;
+    background: rgba(255,204,0,.10);
+    border: 1px solid rgba(255,204,0,.18);
+    color: var(--text);
+  }
 
-        .projectName {
-            font-size: 20px;
-        }
+  .desc {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.65;
+    font-size: 15px;
+  }
 
-        .projectDescription {
-            font-size: 16px;
-        }
-    }
+  .bullets {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--muted);
+    line-height: 1.6;
+    font-size: 14px;
+  }
 
-    /* Mobile */
-    @media (max-width: 480px) {
-        .projectsName {
-            font-size: 24px;
-            padding-top: 20px;
-        }
+  .actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+  }
 
-        .projectList {
-            gap: 20px;
-            margin: 20px 15px;
-        }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,.14);
+    background: rgba(255,255,255,.06);
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    transition: transform .18s ease, border-color .18s ease, background .18s ease;
+  }
 
-        .projectItem {
-            grid-template-columns: 1fr;
-            gap: 15px;
-            padding: 15px;
-        }
+  .btn:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255,204,0,.28);
+    background: rgba(255,204,0,.10);
+  }
 
-        .projectName {
-            font-size: 18px;
-        }
+  .btn.primary {
+    border-color: rgba(255,204,0,.28);
+    background: rgba(255,204,0,.12);
+  }
 
-        .projectDescription {
-            font-size: 14px;
-            line-height: 1.5;
-        }
-    }
-
-    
-`
+  @media (max-width: 900px) {
+    padding: 56px 16px;
+    .card { grid-template-columns: 1fr; }
+  }
+`;
 
 export default function Projects() {
-    return(
-        <>
-        <StyledProjects className="projects" id="projects">
-            <h2 className="projectsName">Мої проєкти</h2>
+  const projects = [
+    {
+      title: "Спортивний клуб Grey Wolf",
+      image: greyWolf,
+      liveUrl: "https://greywolf.com.ua/",
+      stack: ["HTML", "CSS", "Responsive"],
+      bullets: [
+        "Структура сторінок та семантика",
+        "Адаптивність під різні пристрої",
+        "Зручний і зрозумілий інтерфейс"
+      ]
+    },
+    {
+      title: "Focus Frame",
+      image: focusFrame,
+      liveUrl: "https://tate-t.github.io/focus-frame-project/",
+      stack: ["Team", "Layout", "UI"],
+      bullets: [
+        "Відтворення макету та секцій",
+        "Організація контенту і стилів",
+        "Коректне відображення на різних екранах"
+      ]
+    },
+    {
+      title: "Education Certificate",
+      image: es,
+      liveUrl: "https://tate-t.github.io/education-certificate/",
+      stack: ["Team", "Responsive", "Layout"],
+      bullets: [
+        "Реалізація секцій відповідно до дизайну",
+        "Адаптивність та структура контенту",
+        "Командна робота і узгоджені стилі"
+      ]
+    }
+  ];
 
-            <ul className="projectList">
-                <li className="projectItem">
-                    <img className="projectPhoto" src={greyWolf} alt="greyWolf" />
-                    <div className="projectContent">
-                        <h2 className="projectName">Спортивний клуб <a href="https://greywolf.com.ua/" target="_blank" rel="noopener noreferrer">Grey Wolf</a></h2>
-                        <p className="projectDescription">Створив сайт для проєкту GREY WOLF, де представлено послуги персонального тренера та інформацію про тренування й харчування. Розробив структуру сторінок, використав семантичну розмітку, забезпечив адаптивність під різні пристрої та зробив інтерфейс зручним і зрозумілим для користувачів. Цей проєкт демонструє мої навички у створенні сучасних і функціональних вебсайтів</p>
-                    </div>
-                </li>
-                 <li className="projectItem">
-                    <img className="projectPhoto" src={focusFrame} alt="focusFrame" />
-                    <div className="projectContent">
-                        <h2 className="projectName">
-                            <a href="https://tate-t.github.io/focus-frame-project/" target="_blank" rel="noopener noreferrer">Focus Frame</a>
-                        </h2>
-                        <p className="projectDescription">Це командний вебпроєкт Focus Frame — сайт, створений за готовим макетом і розміщений на GitHub учителя. Ми відтворили структуру дизайну, підготували всі основні секції та забезпечили коректне відображення на різних пристроях. У цьому проєкті я відповідав за розмітку, організацію контенту та реалізацію стилів, завдяки чому сайт виглядає цілісно й повторює макет.</p>
-                    </div>
-                </li>
-                 <li className="projectItem">
-                    <img className="projectPhoto" src={es} alt="education-sertificate" />
-                    <div className="projectContent">
-                        <h2 className="projectName">
-                            <a href="https://tate-t.github.io/education-certificate/" target="_blank" rel="noopener noreferrer"> Education Sertificate</a>
-                        </h2>
-                        <p className="projectDescription">Це командний проєкт сайту Education Certificate, створений разом з одногрупниками за готовим макетом і розміщений на GitHub Pages учителя-ментора. Ми реалізували всі секції сторінки відповідно до дизайну, забезпечили адаптивність для різних пристроїв та чітку структуру контенту. Я працював над розміткою і стилями, завдяки чому сайт виглядає цілісно й функціонально. Проєкт демонструє мою здатність працювати в команді та втілювати дизайн у реальний вебсайт.</p>
-                    </div>
-                </li>
-            </ul>
-        </StyledProjects>
-        </>
-    )
+  return (
+    <StyledProjects className="projects" id="projects">
+      <div className="container">
+        <h2>Мої проєкти</h2>
+
+        <div className="grid">
+          {projects.map((p, i) => (
+            <article key={p.title} className="card" style={{ animationDelay: `${i * 0.08}s` }}>
+              <div className="media">
+                <img src={p.image} alt={p.title} />
+              </div>
+
+              <div className="content">
+                <h3 className="name">
+                  <a href={p.liveUrl} target="_blank" rel="noopener noreferrer">
+                    {p.title}
+                  </a>
+                </h3>
+
+                <div className="badges">
+                  {p.stack.map((t) => (
+                    <span key={t} className="badge">{t}</span>
+                  ))}
+                </div>
+
+                <p className="desc">Коротко про роботу над проєктом:</p>
+                <ul className="bullets">
+                  {p.bullets.map((b) => (
+                    <li key={b}>{b}</li>
+                  ))}
+                </ul>
+
+                <div className="actions">
+                  <a className="btn primary" href={p.liveUrl} target="_blank" rel="noopener noreferrer">
+                    🔗 Live
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </StyledProjects>
+  );
 }

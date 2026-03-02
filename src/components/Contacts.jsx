@@ -1,184 +1,173 @@
+// Contacts.jsx
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
-const StyledContacts = styled.section`
-    background-color: #f0f0f0;
-    padding-bottom: 40px;
-    animation: fadeIn 0.8s ease-in-out;
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .contactsTitle {
-        font-family: 'Arial', sans-serif;
-        font-size: 36px;
-        color: #333;
-        text-align: center;
-        padding-top: 40px;
-        animation: slideInLeft 0.6s ease-in-out;
-    }
-
-    @keyframes slideInLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    .contactsContainer {
-        display: flex;
-        justify-content: center;
-        gap: 40px;
-        margin: 40px;
-        flex-wrap: wrap;
-    }
-
-    .contactItem {
-        background-color: white;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        text-align: center;
-        width: 300px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        animation: scaleUp 0.6s ease-out backwards;
-    }
-
-    @keyframes scaleUp {
-      from {
-        transform: scale(0.9);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    .contactItem:nth-child(1) { animation-delay: 0.1s; }
-    .contactItem:nth-child(2) { animation-delay: 0.2s; }
-    .contactItem:nth-child(3) { animation-delay: 0.3s; }
-
-    .contactItem:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 8px 20px rgba(180, 18, 18, 0.2);
-    }
-
-    .contactItem h3 {
-        font-family: 'Arial', sans-serif;
-        font-size: 24px;
-        color: #b41212;
-        margin-bottom: 15px;
-    }
-
-    .contactItem p {
-        font-family: 'Arial', sans-serif;
-        font-size: 18px;
-        color: #333;
-        margin: 0;
-    }
-
-    .contactItem a {
-        color: #b41212;
-        text-decoration: none;
-        transition: color 0.3s ease;
-    }
-
-    .contactItem a:hover {
-        text-decoration: underline;
-        color: #8a0e0e;
-    }
-
-    /* Tablet */
-    @media (max-width: 768px) {
-        .contactsTitle {
-            font-size: 28px;
-            padding-top: 30px;
-        }
-
-        .contactsContainer {
-            gap: 30px;
-            margin: 30px 20px;
-        }
-
-        .contactItem {
-            width: 100%;
-            padding: 20px;
-        }
-
-        .contactItem h3 {
-            font-size: 20px;
-        }
-
-        .contactItem p {
-            font-size: 16px;
-        }
-    }
-
-    /* Mobile */
-    @media (max-width: 480px) {
-        .contactsTitle {
-            font-size: 24px;
-            padding-top: 20px;
-        }
-
-        .contactsContainer {
-            gap: 15px;
-            margin: 20px 15px;
-            flex-direction: column;
-        }
-
-        .contactItem {
-            width: 100%;
-            padding: 15px;
-        }
-
-        .contactItem h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-
-        .contactItem p {
-            font-size: 14px;
-        }
-    }
+const fadeUp = keyframes`
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 `;
 
-const Contacts = () => {
-    return (
-        <StyledContacts id="contacts">
-            <h2 className="contactsTitle">Контакти</h2>
-            <div className="contactsContainer">
-                <div className="contactItem">
-                    <h3>📧 Email</h3>
-                    <p><a href="mailto:dmitroomelianenko@gmail.com">dmitroomelianenko@gmail.com</a></p>
-                </div>
-                <div className="contactItem">
-                    <h3>📱 Телефон</h3>
-                    <p><a href="tel:+380669512399">+380 66 951 23 99</a></p>
-                </div>
-                <div className="contactItem">
-                    <h3>💬 Соцмережі</h3>
-                    <p>
-                        <a href="https://github.com/DmitroOmelianenko" target="_blank" rel="noopener noreferrer">GitHub</a> | 
-                        <a href="https://www.linkedin.com/feed/?trk=guest_homepage-basic_google-one-tap-submit" target="_blank" rel="noopener noreferrer"> LinkedIn</a>
-                    </p>
-                </div>
-            </div>
-        </StyledContacts>
-    );
-}
+const StyledContacts = styled.section`
+  --accent: #b41212;
+  --bg: #f6f6f8;
+  --text: #121317;
+  --muted: #5c626b;
 
-export default Contacts;
+  padding: 72px 20px;
+  background: radial-gradient(900px 450px at 10% 0%, rgba(180,18,18,.10), transparent 55%),
+              var(--bg);
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  h2 {
+    margin: 0 0 28px;
+    text-align: center;
+    font-size: clamp(26px, 3vw, 42px);
+    color: var(--text);
+    animation: ${fadeUp} .6s ease both;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 16px;
+  }
+
+  .card {
+    grid-column: span 4;
+    display: block;
+    text-decoration: none;
+    background: white;
+    border: 1px solid rgba(18,19,23,.08);
+    border-radius: 16px;
+    padding: 20px 18px;
+    box-shadow: 0 10px 28px rgba(18,19,23,.06);
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    animation: ${fadeUp} .55s ease both;
+    color: inherit;
+  }
+
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 42px rgba(180,18,18,.14);
+    border-color: rgba(180,18,18,.22);
+  }
+
+  .top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    background: rgba(180,18,18,.10);
+    border: 1px solid rgba(180,18,18,.18);
+    font-size: 22px;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 18px;
+    color: var(--text);
+  }
+
+  .value {
+    margin: 0;
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.5;
+    word-break: break-word;
+  }
+
+  .hint {
+    margin-top: 12px;
+    font-size: 13px;
+    color: rgba(92,98,107,.9);
+  }
+
+  @media (max-width: 900px) {
+    padding: 56px 16px;
+    .card { grid-column: span 6; }
+  }
+
+  @media (max-width: 560px) {
+    .card { grid-column: span 12; }
+  }
+`;
+
+export default function Contacts() {
+  const items = [
+    {
+      icon: "📧",
+      title: "Email",
+      value: "dmitroomelianenko@gmail.com",
+      href: "mailto:dmitroomelianenko@gmail.com",
+      hint: "Натисніть, щоб написати"
+    },
+    {
+      icon: "📱",
+      title: "Телефон",
+      value: "+380 66 951 23 99",
+      href: "tel:+380669512399",
+      hint: "Натисніть, щоб зателефонувати"
+    },
+    {
+      icon: "💬",
+      title: "Соцмережі",
+      value: "GitHub • LinkedIn",
+      href: "https://github.com/DmitroOmelianenko",
+      hint: "Відкрити профіль"
+    }
+  ];
+
+  return (
+    <StyledContacts id="contacts">
+      <div className="container">
+        <h2>Контакти</h2>
+
+        <div className="grid">
+          {items.map((it, i) => (
+            <a
+              key={it.title}
+              className="card"
+              href={it.href}
+              target={it.href.startsWith("http") ? "_blank" : undefined}
+              rel={it.href.startsWith("http") ? "noopener noreferrer" : undefined}
+              style={{ animationDelay: `${i * 0.06}s` }}
+            >
+              <div className="top">
+                <div className="icon" aria-hidden="true">{it.icon}</div>
+                <h3>{it.title}</h3>
+              </div>
+              <p className="value">{it.value}</p>
+              <div className="hint">{it.hint}</div>
+
+              {it.title === "Соцмережі" && (
+                <div className="hint" style={{ marginTop: 10 }}>
+                  <a
+                    href="https://www.linkedin.com/feed/?trk=guest_homepage-basic_google-one-tap-submit"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: "#b41212", textDecoration: "none", marginLeft: 8 }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    LinkedIn
+                  </a>
+                </div>
+              )}
+            </a>
+          ))}
+        </div>
+      </div>
+    </StyledContacts>
+  );
+}

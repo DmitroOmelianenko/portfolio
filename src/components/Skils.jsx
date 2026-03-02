@@ -1,255 +1,138 @@
-import styled from "styled-components";
+// Skils.jsx
 import React from "react";
-import html from '../images/html5.png'
-import css from '../images/css3.png'
-import js from '../images/js.jpg'
-import bootstrap from '../images/bootstrap.svg'
-import sass from '../images/sass.png'
-import bem from '../images/bem.png'
-import vite from '../images/vite.png'
-import parcel from '../images/parcel.png'
-import mobileFirst from '../images/mobile-fist.png'
-import optimi from '../images/optimization.png'
+import styled, { keyframes } from "styled-components";
+import html from "../images/html5.png";
+import css from "../images/css3.png";
+import js from "../images/js.jpg";
+import bootstrap from "../images/bootstrap.svg";
+import sass from "../images/sass.png";
+import bem from "../images/bem.png";
+import vite from "../images/vite.png";
+import parcel from "../images/parcel.png";
+import mobileFirst from "../images/mobile-fist.png";
+import optimi from "../images/optimization.png";
+
+const fadeUp = keyframes`
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+`;
 
 const StyledSkills = styled.section`
-    background-color: white;
-    padding-bottom: 40px;
-    animation: fadeIn 0.8s ease-in-out;
+  --accent: #b41212;
+  --bg: #ffffff;
+  --text: #121317;
+  --muted: #5c626b;
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+  padding: 72px 20px;
+  background: radial-gradient(900px 450px at 10% 0%, rgba(180,18,18,.08), transparent 55%),
+              var(--bg);
 
-    .skils {
-        font-family: 'Arial', sans-serif;
-        font-size: 36px;
-        color: #333;
-        text-align: center;
-        padding-top: 40px;
-        animation: slideInRight 0.6s ease-in-out;
-    }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
 
-    @keyframes slideInRight {
-      from {
-        opacity: 0;
-        transform: translateX(50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    .skillsList {
-        list-style: none;
-        display: flex;  
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 40px;
-        margin: 40px;
-        padding: 0;
-    }
-    .skillsItem {   
-    background-color: #f0f0f0;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 250px;
+  h2 {
+    margin: 0 0 28px;
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-    animation: scaleUp 0.5s ease-out backwards;
-}
-
-.skillsItem:nth-child(1) { animation-delay: 0.1s; }
-.skillsItem:nth-child(2) { animation-delay: 0.15s; }
-.skillsItem:nth-child(3) { animation-delay: 0.2s; }
-.skillsItem:nth-child(4) { animation-delay: 0.25s; }
-.skillsItem:nth-child(5) { animation-delay: 0.3s; }
-.skillsItem:nth-child(6) { animation-delay: 0.35s; }
-.skillsItem:nth-child(7) { animation-delay: 0.4s; }
-.skillsItem:nth-child(8) { animation-delay: 0.45s; }
-.skillsItem:nth-child(9) { animation-delay: 0.5s; }
-.skillsItem:nth-child(10) { animation-delay: 0.55s; }
-.skillsItem:nth-child(11) { animation-delay: 0.6s; }
-
-@keyframes scaleUp {
-  from {
-    transform: scale(0.9);
-    opacity: 0;
+    font-size: clamp(26px, 3vw, 42px);
+    color: var(--text);
+    animation: ${fadeUp} .6s ease both;
   }
-  to {
-    transform: scale(1);
-    opacity: 1;
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 14px;
   }
-}
 
-.skillsItem:hover {
-    transform: scale(1.08) translateY(-5px);
-    box-shadow: 0 12px 24px rgba(180, 18, 18, 0.2);
-}
+  .card {
+    grid-column: span 3;
+    background: rgba(246,246,248,.8);
+    border: 1px solid rgba(18,19,23,.08);
+    border-radius: 16px;
+    padding: 16px 14px;
+    text-align: center;
+    box-shadow: 0 10px 26px rgba(18,19,23,.06);
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+    animation: ${fadeUp} .55s ease both;
+  }
 
-    .skillsImg {
-        width: 80px;
-        height: auto;
-        margin-bottom: 15px;
-        transition: transform 0.3s ease;
-    }
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 38px rgba(180,18,18,.14);
+    border-color: rgba(180,18,18,.20);
+    background: rgba(255,255,255,.95);
+  }
 
-    .skillsImg:hover {
-        transform: rotate(10deg) scale(1.1);
-    }
+  .img {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    transition: transform .18s ease;
+  }
 
-    .skillsName {
-        font-family: 'Arial', sans-serif;   
-        font-size: 24px;
-        color: #333;    
-        margin-bottom: 10px;
-    }
-    .skillsDescription {
-        font-family: 'Arial', sans-serif;
-        font-size: 16px;
-        color: #666;
-        line-height: 1.4;
-    }
+  .card:hover .img { transform: rotate(-4deg) scale(1.06); }
 
-    /* Tablet */
-    @media (max-width: 768px) {
-        .skils {
-            font-size: 28px;
-            padding-top: 30px;
-        }
+  .name {
+    margin: 0 0 6px;
+    font-size: 16px;
+    font-weight: 900;
+    color: var(--text);
+  }
 
-        .skillsList {
-            gap: 30px;
-            margin: 30px 20px;
-        }
+  .desc {
+    margin: 0;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
 
-        .skillsItem {
-            width: 220px;
-            padding: 15px;
-        }
+  @media (max-width: 900px) {
+    padding: 56px 16px;
+    .card { grid-column: span 4; }
+  }
 
-        .skillsImg {
-            width: 60px;
-        }
+  @media (max-width: 560px) {
+    .card { grid-column: span 6; }
+  }
 
-        .skillsName {
-            font-size: 20px;
-        }
-
-        .skillsDescription {
-            font-size: 14px;
-        }
-    }
-
-    /* Mobile */
-    @media (max-width: 480px) {
-        .skils {
-            font-size: 24px;
-            padding-top: 20px;
-        }
-
-        .skillsList {
-            gap: 20px;
-            margin: 20px 10px;
-            justify-content: space-between;
-        }
-
-        .skillsItem {
-            width: calc(50% - 10px);
-            padding: 12px;
-        }
-
-        .skillsImg {
-            width: 50px;
-        }
-
-        .skillsName {
-            font-size: 18px;
-        }
-
-        .skillsDescription {
-            font-size: 12px;
-            line-height: 1.3;
-        }
-    }
-
-
-`
+  @media (max-width: 380px) {
+    .card { grid-column: span 12; }
+  }
+`;
 
 export default function Skils() {
-    return(
-    <>
+  const skills = [
+    { img: html, name: "HTML5", desc: "Семантична, структурована та доступна розмітка." },
+    { img: css, name: "CSS3", desc: "Адаптивні макети, Flexbox/Grid, анімації." },
+    { img: js, name: "JavaScript", desc: "DOM, логіка інтерфейсу, ES6+ синтаксис." },
+    { img: bootstrap, name: "Bootstrap 5", desc: "Швидка побудова адаптивних інтерфейсів." },
+    { img: sass, name: "Sass/SCSS", desc: "Змінні, міксини, модулі, структура стилів." },
+    { img: bem, name: "BEM", desc: "Масштабована система іменування класів." },
+    { img: vite, name: "Vite", desc: "Швидка збірка та комфортна розробка." },
+    { img: parcel, name: "Parcel", desc: "Автоматична оптимізація та простий старт." },
+    { img: mobileFirst, name: "Mobile First", desc: "Пріоритет мобільних екранів у дизайні." },
+    { img: mobileFirst, name: "Desktop First", desc: "Орієнтація на великі екрани з адаптацією." },
+    { img: optimi, name: "Ретинізація", desc: "Підготовка HiDPI/Retina графіки." }
+  ];
+
+  return (
     <StyledSkills className="skils" id="skills">
-        <h2 className="skils">Навички</h2>
+      <div className="container">
+        <h2>Навички</h2>
 
-        <ul className="skillsList">
-    <li className="skillsItem">
-        <img src={html} alt="HTML5" className="skillsImg" />
-        <h3 className="skillsName">HTML5</h3>
-        <p className="skillsDescription">Створення семантичної, структурованої та доступної розмітки.</p>
-    </li>
-    <li className="skillsItem">
-        <img src={css} alt="CSS3" className="skillsImg" />
-        <h3 className="skillsName">CSS3</h3>
-        <p className="skillsDescription">Адаптивні макети, анімації, Flexbox і Grid.</p>
-    </li>
-    <li className="skillsItem">
-        <img src={js} alt="JavaScript" className="skillsImg" />
-        <h3 className="skillsName">JavaScript</h3>
-        <p className="skillsDescription">Робота з DOM, логіка інтерфейсу, сучасний ES6+ синтаксис.</p>
-    </li>
-    <li className="skillsItem">
-        <img src={bootstrap} alt="Bootstrap 5" className="skillsImg" />
-        <h3 className="skillsName">Bootstrap 5</h3>
-        <p className="skillsDescription">Швидка побудова адаптивних інтерфейсів за допомогою готових компонентів.</p>
-    </li>
-    <li className="skillsItem">
-        <img src={sass} alt="Sass/Scss" className="skillsImg" />
-        <h3 className="skillsName">Sass/SCSS</h3>
-        <p className="skillsDescription">Структурована стилізація з використанням змінних, міксинів та модулів.</p>
-    </li>
-    <li className="skillsItem">
-        <img src={bem} alt="BEM" className="skillsImg" />
-        <h3 className="skillsName">BEM methodology</h3>
-        <p className="skillsDescription">Чітка система іменування класів для масштабованих інтерфейсів.</p>
-    </li>
-    <li className="skillsItem">
-        <img src={vite} alt="Vite" className="skillsImg" />
-        <h3 className="skillsName">Vite</h3>
-        <p className="skillsDescription">Сучасний, надшвидкий збирач з підтримкою hot-reload.</p>
-    </li>
-    <li className="skillsItem">
-        <img src={parcel} alt="Parcel" className="skillsImg" />
-        <h3 className="skillsName">Parcel</h3>
-        <p className="skillsDescription">Просте налаштування та автоматична оптимізація фронтенд ресурсів.</p>
-    </li>
-    <li className="skillsItem">
-        <img src={mobileFirst} alt="Mobile First" className="skillsImg" />
-        <h3 className="skillsName">Mobile First</h3>
-        <p className="skillsDescription">Побудова інтерфейсу з пріоритетом для мобільних екранів.</p>
-    </li>
-    <li className="skillsItem">
-        <img src={mobileFirst} alt="Desktop First" className="skillsImg" />
-        <h3 className="skillsName">Desktop First</h3>
-        <p className="skillsDescription">Розробка з орієнтацією на великі екрани з подальшою адаптацією.</p>
-    </li>
-    <li className="skillsItem">
-        <img src={optimi} alt="Ретинізація графіки" className="skillsImg" />
-        <h3 className="skillsName">Ретинізація графіки</h3>
-        <p className="skillsDescription">Підготовка зображень високої щільності для Retina та HiDPI екранів.</p>
-    </li>
-</ul>
-
+        <div className="grid">
+          {skills.map((s, i) => (
+            <div key={s.name} className="card" style={{ animationDelay: `${i * 0.05}s` }}>
+              <img src={s.img} alt={s.name} className="img" />
+              <h3 className="name">{s.name}</h3>
+              <p className="desc">{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </StyledSkills>
-    </>
-    )
+  );
 }
